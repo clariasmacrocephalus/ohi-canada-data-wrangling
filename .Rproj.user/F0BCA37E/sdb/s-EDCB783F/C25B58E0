@@ -1,0 +1,15 @@
+{
+    "contents" : "library(marmap)\nlibrary(maps)\n\ngetNOAA.bathy(lon1 = -150, lon2 = -40, lat1 = 40, lat2 = 90,resolution = 10) -> Canada\n#detach(\"package:marmap\", unload=TRUE)\nsummary(Canada)\nr1 <- as.raster(Canada)\nprojection <- \"+proj=lcc +lon_0=-92.8667\"\nlibrary(raster)\n\nr2 <- projectRaster(r1,crs=projection)\nas.bathy(r2) -> Canada2\n\nplot.bathy(Canada2, image=T,bpal=gray(c(0.7,0.5,0)),deep = c(-9000, -300, 0), shallow = c(-300, 0, 0),step = c(9000, 300, 0), lwd = c(0.8, 0.8, 1),col = c(\"lightgrey\", \"darkgrey\", \"black\"),lty = c(1, 1, 1), drawlabel = c(FALSE, FALSE, FALSE))\n\np <- rasterToPolygons(r1, dissolve=TRUE)\nlibrary(rgdal)\nwriteOGR(p,\"C:/Users/Remi-Work/Documents/ArcGIS/bathy\",\"testShape\",driver=\"ESRI Shapefile\",)",
+    "created" : 1390497445978.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2068380591",
+    "id" : "C25B58E0",
+    "lastKnownWriteTime" : 1390507484,
+    "path" : "~/R/OHI/mapping.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

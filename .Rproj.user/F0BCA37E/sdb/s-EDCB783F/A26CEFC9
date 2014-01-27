@@ -1,0 +1,21 @@
+{
+    "contents" : "",
+    "created" : 1390494016352.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A26CEFC9",
+    "lastKnownWriteTime" : 7741240722073845761,
+    "path" : null,
+    "properties" : {
+        "caption" : "ice_index_byyear",
+        "contentUrl" : "content?title=ice_index_byyear&file=3fb4a3f524144d11811427ada453bf4c.htm",
+        "displayedObservations" : 36,
+        "displayedVariables" : 53,
+        "totalObservations" : 36,
+        "variables" : 53
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}
