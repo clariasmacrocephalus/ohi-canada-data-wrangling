@@ -83,44 +83,108 @@ cover$year=substr(cover$filename,10,13)
 cover$month=substr(cover$filename,14,15)
 
 
-### calculate percent cover
-pcover=cover
-for(i in 1:length(inuit_data$Long_X)){
-  pcover[,i]=cover[,i]/max(cover[,i])
-  plot(c(1:length(filelist)),pcover[,i],"l")
-}
+
 
 ### calculate mean trend
-pcover$mean=pcover$month
+cover$mean=cover$month
 for(i in 1:length(filelist)){
-  pcover$mean[i]=mean(as.numeric(pcover[i,1:length(inuit_data$Long_X)]))
+  cover$mean[i]=mean(as.numeric(cover[i,1:length(inuit_data$Long_X)]))
 }
-plot(c(1:length(filelist)),pcover$mean,"l")
+plot(c(1:length(filelist)),cover$mean,"l")
 
 
 ### remove 0's and 1's
-pcover2=pcover
+cover2=cover
 for(j in 1:length(inuit_data$Long_X)){
   for(i in 1:12){
-    index=as.numeric(pcover2$month)==i
-    if(mean(pcover[index,j])==1) {pcover2[index,j]=NA}
-    if(mean(pcover[index,j])==0) {pcover2[index,j]=NA}
+    index=as.numeric(cover2$month)==i
+    if(mean(cover[index,j])==max(cover[,j])) {cover2[index,j]=NA}
+    if(mean(cover[index,j])==0) {cover2[index,j]=NA}
   }
 }
 
 
 ### calculate yearly pattern
+years=unique(cover$year)[2:length(unique(cover$year))]
 ice_index_byyear=data.frame(matrix(NA,nrow=length(years),ncol=length(inuit_data$Long_X)))
 ice_index_byyear2=ice_index_byyear
-years=unique(pcover$year)[2:length(unique(pcover$year))]
 for(j in 1:length(inuit_data$Long_X)){
   for(i in 1:length(years)){
-    index=as.numeric(pcover2$year)==years[i]
-    ice_index_byyear[i,j]=mean(pcover[index,j],na.rm=T)
-    ice_index_byyear2[i,j]=mean(pcover2[index,j],na.rm=T)
+    index=as.numeric(cover$year)==years[i]
+    ice_index_byyear[i,j]=mean(cover[index,j],na.rm=T)
+    ice_index_byyear2[i,j]=mean(cover2[index,j],na.rm=T)
   }
 }
 ice_index_byyear$mean=rowMeans(ice_index_byyear)
 plot(years,ice_index_byyear$mean,"l")
 ice_index_byyear2$mean=rowMeans(ice_index_byyear2)
 plot(years,ice_index_byyear2$mean,"l")
+
+### calculate percent cover
+pcover=ice_index_byyear
+pcover2=ice_index_byyear
+for(i in 1:length(inuit_data$Long_X)){
+  pcover[,i]=ice_index_byyear[,i]/max(cover[,i])
+  pcover2[,i]=ice_index_byyear2[,i]/max(cover[,i])
+  #plot(c(1:length(filelist)),pcover[,i],"l")
+}
+
+pcover$mean=rowMeans(pcover)
+plot(years,pcover$mean,"l")
+pcover2$mean=rowMeans(pcover2)
+plot(years,pcover2$mean,"l")
+
+### calculate monthly pattern
+years=unique(cover$year)[2:length(unique(cover$year))]
+range=data.frame(matrix(NA,nrow=12,ncol=length(inuit_data$Long_X)))
+
+for(m in 1:12){
+  cover_m=cover[as.numeric(cover$month)==m,]
+  ice_index_bymonth=data.frame(matrix(NA,nrow=length(years),ncol=length(inuit_data$Long_X)))
+  for(j in 1:length(inuit_data$Long_X)){
+    for(i in 1:length(years)){
+      index=as.numeric(cover_m$year)==years[i]
+      ice_index_bymonth[i,j]=mean(cover_m[index,j],na.rm=T)
+    }
+    range[m,j]=(max(ice_index_bymonth[,j],na.rm=T)-min(ice_index_bymonth[,j],na.rm=T))/max(cover[,j])
+  }
+  
+  
+  ### calculate percent cover
+  pcover_m=ice_index_bymonth
+  for(i in 1:length(inuit_data$Long_X)){
+    pcover_m[,i]=ice_index_bymonth[,i]/max(cover[,i])
+  }
+  pcover_m$mean=rowMeans(pcover_m)
+  plot(years,pcover_m$mean,"l")
+  title(m)
+  print(quant(pcover_m$mean,na.rm=T)-max(pcover_m$mean,na.rm=T))
+}
+
+
+### calculate month of max range
+rangem=range[1,]
+for(i in 1:length(inuit_data$Long_X)){
+  rangem[i]=c(1:12)[range[,i]==max(range[,i])]
+}
+### calculate monthly pattern
+years=unique(cover$year)[2:length(unique(cover$year))]
+
+ice_index_bymonthmaxrange=data.frame(matrix(NA,nrow=length(years),ncol=length(inuit_data$Long_X)))
+for(j in 1:length(inuit_data$Long_X)){
+  for(i in 1:length(years)){
+    index=as.numeric(cover$year)==years[i]&as.numeric(cover$month)==as.numeric(rangem[j])
+    if(sum(index)==1){
+    ice_index_bymonthmaxrange[i,j]=cover[index,j]
+    }
+  }
+}
+
+
+### calculate percent cover
+pcover_mmaxrange=ice_index_bymonth
+for(i in 1:length(inuit_data$Long_X)){
+  pcover_mmaxrange[,i]=ice_index_bymonthmaxrange[,i]/max(cover[,i])
+}
+pcover_mmaxrange$mean=rowMeans(pcover_mmaxrange,na.rm=T)
+plot(years,pcover_mmaxrange$mean,"l")
