@@ -55,7 +55,7 @@ for(t in 1:length(filelist)){
   x=readOGR("C:/Users/Remi-Work/Documents/ArcGIS/NSIDC Sea Ice/shapefiles",layer=as.character(filelist[t]))
   ice=spTransform(x,projection)
   for(i in 1:length(inuit_data$Long_X)){
-    c1 = circle(cbind(inuit_data$Long_X[i], inuit_data$Lat_Y[i]),inuit_data$Distance[i]+500000)
+    c1 = circle(cbind(inuit_data$Long_X[i], inuit_data$Lat_Y[i]),300000)
     r1 = rbind(c1, c1[1, ])  # join
     P1 = Polygon(r1)
     Ps1 = Polygons(list(P1), ID = "a")
@@ -93,50 +93,50 @@ for(i in 1:length(filelist)){
 plot(c(1:length(filelist)),cover$mean,"l")
 
 
-### remove 0's and 1's
-cover2=cover
-for(j in 1:length(inuit_data$Long_X)){
-  for(i in 1:12){
-    index=as.numeric(cover2$month)==i
-    if(mean(cover[index,j])==max(cover[,j])) {cover2[index,j]=NA}
-    if(mean(cover[index,j])==0) {cover2[index,j]=NA}
-  }
-}
 
-
-### calculate yearly pattern
+### calculate yearly pattern ##################################################################################
 years=unique(cover$year)[2:length(unique(cover$year))]
 ice_index_byyear=data.frame(matrix(NA,nrow=length(years),ncol=length(inuit_data$Long_X)))
-ice_index_byyear2=ice_index_byyear
 for(j in 1:length(inuit_data$Long_X)){
   for(i in 1:length(years)){
     index=as.numeric(cover$year)==years[i]
     ice_index_byyear[i,j]=mean(cover[index,j],na.rm=T)
-    ice_index_byyear2[i,j]=mean(cover2[index,j],na.rm=T)
   }
 }
 ice_index_byyear$mean=rowMeans(ice_index_byyear)
 plot(years,ice_index_byyear$mean,"l")
-ice_index_byyear2$mean=rowMeans(ice_index_byyear2)
-plot(years,ice_index_byyear2$mean,"l")
+
 
 ### calculate percent cover
 pcover=ice_index_byyear
-pcover2=ice_index_byyear
 for(i in 1:length(inuit_data$Long_X)){
   pcover[,i]=ice_index_byyear[,i]/max(cover[,i])
-  pcover2[,i]=ice_index_byyear2[,i]/max(cover[,i])
   #plot(c(1:length(filelist)),pcover[,i],"l")
 }
 
-pcover$mean=rowMeans(pcover)
+pcover$mean=rowMeans(pcover[,1:53])
 plot(years,pcover$mean,"l")
-pcover2$mean=rowMeans(pcover2)
+
+### standardize by max pcover
+pcover2=ice_index_byyear
+for(i in 1:length(inuit_data$Long_X)){
+  pcover2[,i]=pcover2[,i]/max(pcover2[,i])
+}
+
+pcover2$mean=rowMeans(pcover2[,1:53])
 plot(years,pcover2$mean,"l")
 
-### calculate monthly pattern
+
+
+
+
+
+
+### calculate monthly pattern ########################################################################
 years=unique(cover$year)[2:length(unique(cover$year))]
 range=data.frame(matrix(NA,nrow=12,ncol=length(inuit_data$Long_X)))
+variance=data.frame(matrix(NA,nrow=12,ncol=length(inuit_data$Long_X)))
+
 
 for(m in 1:12){
   cover_m=cover[as.numeric(cover$month)==m,]
@@ -146,7 +146,7 @@ for(m in 1:12){
       index=as.numeric(cover_m$year)==years[i]
       ice_index_bymonth[i,j]=mean(cover_m[index,j],na.rm=T)
     }
-    range[m,j]=(max(ice_index_bymonth[,j],na.rm=T)-min(ice_index_bymonth[,j],na.rm=T))/max(cover[,j])
+    variance[m,j]=var(ice_index_bymonth[,j],na.rm=T)
   }
   
   
@@ -158,33 +158,33 @@ for(m in 1:12){
   pcover_m$mean=rowMeans(pcover_m)
   plot(years,pcover_m$mean,"l")
   title(m)
-  print(quant(pcover_m$mean,na.rm=T)-max(pcover_m$mean,na.rm=T))
+  print(min(pcover_m$mean,na.rm=T)-max(pcover_m$mean,na.rm=T))
 }
 
 
-### calculate month of max range
-rangem=range[1,]
+### calculate month of max var
+var_m=variance[1,]
 for(i in 1:length(inuit_data$Long_X)){
-  rangem[i]=c(1:12)[range[,i]==max(range[,i])]
+  var_m[i]=c(1:12)[variance[,i]==max(variance[,i])]
 }
 ### calculate monthly pattern
 years=unique(cover$year)[2:length(unique(cover$year))]
 
-ice_index_bymonthmaxrange=data.frame(matrix(NA,nrow=length(years),ncol=length(inuit_data$Long_X)))
+ice_index_bymonthmaxvar=data.frame(matrix(NA,nrow=length(years),ncol=length(inuit_data$Long_X)))
 for(j in 1:length(inuit_data$Long_X)){
   for(i in 1:length(years)){
-    index=as.numeric(cover$year)==years[i]&as.numeric(cover$month)==as.numeric(rangem[j])
+    index=as.numeric(cover$year)==years[i]&as.numeric(cover$month)==as.numeric(var_m[j])
     if(sum(index)==1){
-    ice_index_bymonthmaxrange[i,j]=cover[index,j]
+    ice_index_bymonthmaxvar[i,j]=cover[index,j]
     }
   }
 }
 
 
 ### calculate percent cover
-pcover_mmaxrange=ice_index_bymonth
+pcover_mmaxvar=ice_index_bymonth
 for(i in 1:length(inuit_data$Long_X)){
-  pcover_mmaxrange[,i]=ice_index_bymonthmaxrange[,i]/max(cover[,i])
+  pcover_mmaxvar[,i]=ice_index_bymonthmaxvar[,i]/max(cover[,i])
 }
-pcover_mmaxrange$mean=rowMeans(pcover_mmaxrange,na.rm=T)
-plot(years,pcover_mmaxrange$mean,"l")
+pcover_mmaxvar$mean=rowMeans(pcover_mmaxvar,na.rm=T)
+plot(years,pcover_mmaxvar$mean,"l")
