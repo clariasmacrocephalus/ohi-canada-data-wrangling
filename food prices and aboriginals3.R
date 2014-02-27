@@ -200,7 +200,7 @@ for(i in 1:dim(FN_data)[1]){
   FN_data$nearcity[i]= as.character(cityLL$InterCity[(distmat==apply(distmat,1,function(x) min(x)))[i,]])
   index=cityLL$InterCity==FN_data$nearcity[i]
   FN_data$nc_dist[i]=rdist.earth(cbind(FN_data$Long_X[i],FN_data$Lat_Y[i]),cbind(cityLL$Longitude[index],cityLL$Latitude[index]),miles=F) 
-  FN_data$avg_ICCPI[i]=mean(as.numeric(InterCity$Value[InterCity$Ref_Date>=2005&InterCity$Ref_Date<=2010&InterCity$GEO==(ID_RFNB$nearcity[i])]))
+  FN_data$avg_ICCPI[i]=mean(as.numeric(InterCity$Value[InterCity$Ref_Date>=2005&InterCity$Ref_Date<=2010&InterCity$GEO==(FN_data$nearcity[i])]))
 }
 for(yi in (1979:2013)-1978){
   
@@ -230,18 +230,25 @@ for(yi in (1979:2013)-1978){
   }
   if(yi==1){
     final_data=data.frame(cbind(name=c(as.character(inuit_data$NAME),as.character(FN_data$BAND_NAME)),
+                        type=rep("Inuit",length(inuit_data$NAME)+length(FN_data$BAND_NAME)),
                         latitude=c(inuit_data$Lat_Y,FN_data$Lat_Y),
                         longitude=c(inuit_data$Long_X,FN_data$Long_X),
+                        population=c(inuit_data$POPULATION,FN_data$REGISTERED),
+                        year=rep(yi+1978,length(inuit_data$NAME)+length(FN_data$BAND_NAME)),
                         gas=c(inuit_data$gas,FN_data$gas),
                         est_RFNB=c(inuit_data$est_RFNB,FN_data$est_RFNB)
                         ))
   } else {
     final_data=rbind(final_data,data.frame(cbind(name=c(inuit_data$NAME,FN_data$BAND_NAME),
+                                type=rep("First Nations",length(inuit_data$NAME)+length(FN_data$BAND_NAME)),
                                 latitude=c(inuit_data$Lat_Y,FN_data$Lat_Y),
                                 longitude=c(inuit_data$Long_X,FN_data$Long_X),
+                                population=c(inuit_data$POPULATION,FN_data$REGISTERED),
+                                year=rep(yi+1978,length(inuit_data$NAME)+length(FN_data$BAND_NAME)),
                                 gas=c(inuit_data$gas,FN_data$gas),
                                 est_RFNB=c(inuit_data$est_RFNB,FN_data$est_RFNB))
     ))
   }
   print(yi+1978)
 }
+write.csv(final_data,'~/Documents/R/OHI/aboriginal_food_gas.csv')
