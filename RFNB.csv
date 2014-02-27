@@ -1,0 +1,107 @@
+Region,Type,InterCity,Name,lat,long,2005,2006,2007,2008,2009,2010
+Newfoundland and Labrador,Entry,"Montréal, Quebec",Montreal,45.5,-73.5667,,,209,219,229,
+Newfoundland and Labrador,Entry,"St. John's, Newfoundland and Labrador",St. John's,47.5675,-52.7072,,,200,,,
+Newfoundland and Labrador,Entry,,Happy Valley/Goose Bay,53.3019,-60.4167,,,224,232,253,
+Newfoundland and Labrador,Community,,Black Tickle,,,,,,,265,
+Newfoundland and Labrador,Community,,Cartwright,,,,,246,,,
+Newfoundland and Labrador,Community,,Rigolet,,,,,,297,310,
+Newfoundland and Labrador,Community,,Makkovik,,,,,269,,304,
+Newfoundland and Labrador,Community,,Postville,,,,,281,294,310,
+Newfoundland and Labrador,Community,,Hopedale,,,,,281,,318,
+Newfoundland and Labrador,Community,,Natuashish,,,,,296,,341,
+Newfoundland and Labrador,Community,,Nain,,,,,283,,337,
+Nunavik Region,Entry,"Montréal, Quebec",Montreal,45.5,-73.5667,190,,209,219,229,
+Nunavik Region,Entry,,Gatineau,45.4833,-75.65,189,,,,228,
+Nunavik Region,Entry,,Val-d'Or,48.1,-77.7833,194,,203,218,249,
+Nunavik Region,Community,,Kuujjuarapik,,,,,365,,371,
+Nunavik Region,Community,,Umiujaq,,,,,,,390,
+Nunavik Region,Community,,Inukjuak,,,,,353,,,
+Nunavik Region,Community,,Puvirnituq,,,,,,,383,
+Nunavik Region,Community,,Akulivik,,,,,,,375,
+Nunavik Region,Community,,Salluit,,,,,,376,377,
+Nunavik Region,Community,,Kangiqsujuaq,,,328,324.5,,359,349,
+Nunavik Region,Community,,Kangirsuk,,,333,353,,,400,
+Nunavik Region,Community,,Tasiujaq,,,309,344,,,,
+Nunavik Region,Community,,Kuujjuaq,,,,305,,,341,
+Nunavik Region,Community,,Kangiqsualujjuaq,,,,,,,391,
+Cote-Nord,Entry,,Sept-Iles,50.2167,-66.3833,,,,,,221
+Cote-Nord,Community,,Blanc-Sablon,,,,,,,,257
+Cote-Nord,Community,,Saint Augustin/Pakuashipi,,,,,,,,267
+Cote-Nord,Community,,La Romaine,,,,,,,,308
+Ontario,Entry,"Ottawa-Gatineau, Ontario part, Ontario/Quebec",Ottawa,45.4214,-75.6919,189,205,218,212,224,
+Ontario,Entry,,Sudbury,46.49,-81.01,,,,202,,
+Ontario,Entry,,Timmins,48.4667,-81.3333,186,,,199,,
+Ontario,Entry,,Moosonee,51.2722,-80.6431,238,,,284,,
+Ontario,Entry,,Thunder Bay,48.3822,-89.2461,,197,206,,227,
+Ontario,Entry,,Pickle Lake,51.4464,-90.2142,258,,258,,290,
+Ontario,Entry,"Winnipeg, Manitoba",Winnipeg,49.8994,-97.1392,209,,218,,250,
+Ontario,Community,,Fort Albany,,,363,,,412,,
+Ontario,Community,,Kashechewan,,,,,,411,,
+Ontario,Community,,Attawapiskat,,,358,,,391,,
+Ontario,Community,,Peawanuck,,,423,,,518,415,
+Ontario,Community,,Wunnummin Lake,,,,,,,,
+Ontario,Community,,Big Trout Lake,,,,,,,387,
+Ontario,Community,,Sachigo Lake,,,,,,,,
+Ontario,Community,,Fort Severn,,,363,360,401,,411,
+Ontario,Community,,Muskrat Dam,,,,,,,352,
+Manitoba,Entry,,Thompson,55.7433,-97.8553,,,,,,245
+Manitoba,Entry,"Winnipeg, Manitoba",Winnipeg,49.8994,-97.1392,,,,,,242
+Manitoba,Community,,Island Lake/Garden Hill,,,,,,,,416
+Manitoba,Community,,Pauingassi,,,,,,,,410
+Manitoba,Community,,Red Sucker Lake,,,,,,,,444
+Manitoba,Community,,St. Theresa Point,,,,,,,,392
+Manitoba,Community,,Waasagomach,,,,,,,,401
+Baffin Region,Entry,,Val-d'Or,48.1,-77.7833,194,,203,218,249,
+Baffin Region,Entry,"Ottawa-Gatineau, Ontario part, Ontario/Quebec",Ottawa,45.4214,-75.6919,189,205,218,219,224,226
+Baffin Region,Entry,,Yellowknife,62.4422,-114.3975,212,206,,235,,
+Baffin Region,Community,,Iqaluit,,,354,,351,,382,398
+Baffin Region,Community,,Pangnirtung,,,396,,,443,,460
+Baffin Region,Community,,Qikiqtarjuaq,,,376,,,427,,
+Baffin Region,Community,,Clyde River,,,407,,,443,,
+Baffin Region,Community,,Pond Inlet,,,,380,,,,
+Baffin Region,Community,,Arctic Bay,,,,397,,,,451
+Baffin Region,Community,,Grise Fiord,,,,,354,,406,
+Baffin Region,Community,,Resolute,,,,370,406,,422,
+Baffin Region,Community,,Igloolik,,,392,,,426,,
+Baffin Region,Community,,Hall Beach,,,381,,,439,,
+Baffin Region,Community,,Cape Dorset,,,,,,,,436
+Baffin Region,Community,,Kimmirut,,,373,,394,,,395
+Baffin Region,Community,,Sanikiluaq,,,,,413,,,
+Kivalliq Region,Entry,"Winnipeg, Manitoba",Winnipeg,49.8994,-97.1392,209,,218,,243,242
+Kivalliq Region,Entry,,Thompson,55.7433,-97.8553,,,,,241,245
+Kivalliq Region,Entry,,Churchill,58.7692,-94.1692,259,276,299,,330,320
+Kivalliq Region,Community,,Arviat,,,361,385,396,,408,419
+Kivalliq Region,Community,,Whale Cove,,,374,401,438,,403,408
+Kivalliq Region,Community,,Rankin Inlet,,,395,417,416,,418,416
+Kivalliq Region,Community,,Chesterfield Inlet,,,401,408,448,,,430
+Kivalliq Region,Community,,Baker Lake,,,389,404,419,,438,434
+Kivalliq Region,Community,,Repulse Bay,,,386,420,411,,,428
+Kivalliq Region,Community,,Coral Harbour,,,,443,430,,457,442
+Kitikmeot Region,Entry,"Edmonton, Alberta",Edmonton,53.5333,-113.5,196,202,,240.5,254,
+Kitikmeot Region,Entry,,Yellowknife,62.4422,-114.3975,212,206,,226,239,
+Kitikmeot Region,Community,,Kugluktuk,,,,,,445,452,
+Kitikmeot Region,Community,,Cambridge Bay,,,398,382,,401,429,
+Kitikmeot Region,Community,,Gjoa Haven,,,,392,,440,452,
+Kitikmeot Region,Community,,Taloyoak,,,,423,,447,471,
+Kitikmeot Region,Community,,Kugaaruk,,,338,360,,428,436,
+Saskatchewan,Entry,"Winnipeg, Manitoba",Winnipeg,49.8994,-97.1392,,,,,242,
+Saskatchewan,Entry,,Prince Albert,53.2,-105.75,,,,,244,
+Saskatchewan,Entry,,La Ronge,55.1,-105.3,,,,,242,
+Saskatchewan,Community,,Black Lake,,,,,,,429,
+Saskatchewan,Community,,Stony Rapids,,,,,,,407,
+Northwest Territories,Entry,"Edmonton, Alberta",Edmonton,53.5333,-113.5,196,202,,251,254,
+Northwest Territories,Entry,,Yellowknife,62.4422,-114.3975,212,209,,235,239,
+Northwest Territories,Entry,,Inuvik,68.3617,-133.7306,269,297,,348,,
+Northwest Territories,Entry,,Hay River,60.8331 ,-115.7778,,,,,261,
+Northwest Territories,Community,,Deline,,,,408,,442,426,
+Northwest Territories,Community,,Tulita,,,417,415,,423,448,
+Northwest Territories,Community,,Norman Wells,,,365,399,,419,428,
+Northwest Territories,Community,,Fort Good Hope,,,,408,,437,421,
+Northwest Territories,Community,,Colville Lake,,,,,,492,483,
+Northwest Territories,Community,,Tuktoyaktuk,,,,379,,423,,
+Northwest Territories,Community,,Paulatuk,,,,421,,476,,
+Northwest Territories,Community,,Sachs Harbour,,,,432,,434,,
+Northwest Territories,Community,,Ulukhaktok,,,,404,,429,,
+Northwest Territories,Community,,Trout Lake,,,,,,,376,
+Yukon,Entry,,Whitehorse,60.7167,-135.05,203,,,207,,
+Yukon,Community,,Old Crow,,,436,462,,496,,
