@@ -5,12 +5,13 @@
 library(foreign)
 inuit_data=read.dbf("C:/Users/Remi-Work/Documents/ArcGIS/Inuit.dbf")
 
-RFNB=read.csv("~/Documents/R/OHI/RFNB.csv")
-InterCity=read.csv("~/Documents/R/OHI/03260015-eng.csv")
-CPI=read.csv("~/Documents/R/OHI/03260021-eng.csv")
+RFNB=read.csv("RFNB.csv")
+InterCity=read.csv("03260015-eng.csv")
+CPI=read.csv("03260021-eng.csv")
+CPI=CPI[CPI$COMM=="Food",]
 InterCity=InterCity[InterCity$COMMODITY=="Food",]
 CPI=CPI[CPI$COMM=="Food",]
-cityLL=read.csv("~/Documents/R/OHI/InterCity_LL.csv")
+cityLL=read.csv("InterCity_LL.csv")
 
 #merge inuit_data with RFNB
 ID_RFNB=merge(inuit_data,RFNB,by.x="NAME",by.y="Name")
@@ -186,9 +187,10 @@ abline(coef(fit3), lty=2)
 ################################################# estimate First Nations RFNB prices from fit2 ############################
 FN_data=read.dbf("C:/Users/Remi-Work/Documents/ArcGIS/FirstNations.dbf")
 CPI=read.csv("~/Documents/R/OHI/03260021-eng.csv")
+CPI=CPI[CPI$COMM=="Food",]
 gas=read.csv("~/Documents/R/OHI/03260009-eng.csv")
 gas$year=as.numeric(substr(gas$Ref_Date, 1, 4))
-#limit First Nations communities to 1000km from shore
+#limit First Nations communities to 300km from shore
 FN_data=FN_data[FN_data$Distance<300000,]
 #calculate distance from nearest "intercity index"
 library(fields)
@@ -230,7 +232,7 @@ for(yi in (1979:2013)-1978){
   }
   if(yi==1){
     final_data=data.frame(cbind(name=c(as.character(inuit_data$NAME),as.character(FN_data$BAND_NAME)),
-                        type=rep("Inuit",length(inuit_data$NAME)+length(FN_data$BAND_NAME)),
+                        type=c(rep("Inuit",length(inuit_data$NAME)),rep("First Nations",length(FN_data$BAND_NAME))),
                         latitude=c(inuit_data$Lat_Y,FN_data$Lat_Y),
                         longitude=c(inuit_data$Long_X,FN_data$Long_X),
                         population=c(inuit_data$POPULATION,FN_data$REGISTERED),
@@ -239,8 +241,8 @@ for(yi in (1979:2013)-1978){
                         est_RFNB=c(inuit_data$est_RFNB,FN_data$est_RFNB)
                         ))
   } else {
-    final_data=rbind(final_data,data.frame(cbind(name=c(inuit_data$NAME,FN_data$BAND_NAME),
-                                type=rep("First Nations",length(inuit_data$NAME)+length(FN_data$BAND_NAME)),
+    final_data=rbind(final_data,data.frame(cbind(name=c(as.character(inuit_data$NAME),as.character(FN_data$BAND_NAME)),
+                                type=c(rep("Inuit",length(inuit_data$NAME)),rep("First Nations",length(FN_data$BAND_NAME))),
                                 latitude=c(inuit_data$Lat_Y,FN_data$Lat_Y),
                                 longitude=c(inuit_data$Long_X,FN_data$Long_X),
                                 population=c(inuit_data$POPULATION,FN_data$REGISTERED),
@@ -252,3 +254,16 @@ for(yi in (1979:2013)-1978){
   print(yi+1978)
 }
 write.csv(final_data,'~/Documents/R/OHI/aboriginal_food_gas.csv')
+
+mean(CPI$Value[CPI$Ref_Date==1979])
+mean(CPI$Value[CPI$Ref_Date==2013])
+1/(mean(gas$Value[gas$year==1979])/mean(gas$Value[gas$year==2013]))
+1/(mean(CPI$Value[CPI$Ref_Date==1979])/mean(CPI$Value[CPI$Ref_Date==2013]))
+
+1/(mean(gas$Value[gas$year==1979])/mean(gas$Value[gas$year==1981]))
+1/(mean(CPI$Value[CPI$Ref_Date==1979])/mean(CPI$Value[CPI$Ref_Date==1981]))
+
+1/(mean(gas$Value[gas$year==1981])/mean(gas$Value[gas$year==1999]))
+1/(mean(CPI$Value[CPI$Ref_Date==1981])/mean(CPI$Value[CPI$Ref_Date==1999]))
+
+
